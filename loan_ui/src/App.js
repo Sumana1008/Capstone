@@ -8,6 +8,7 @@ import Loanlist from  './components/loanstatus';
 import Dashboard from './components/dashboard';
 
 function App() {
+    document.title = "EaseLoan"
   return (
     <Router>
       <Routes>
