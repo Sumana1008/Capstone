@@ -1,10 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {Col,Container,Row,Navbar,Nav} from "react-bootstrap";
-import { useState } from 'react';
-import { useEffect } from 'react';
+import {Card} from "react-bootstrap";
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import Navbar from "./navbar"
 function Profile() {
     const firstname=localStorage.getItem("fname");
     const lastname=localStorage.getItem("lname")
@@ -17,29 +16,18 @@ function Profile() {
       }
     },[])
     */
+    const cardcss = {
+      height:"600px",
+      padding:"70px",
+      width:"500px",
+      margin:"80px auto",
+    }
     
   return (
     <div>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="#home">Profile</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav>
-          <Nav.Link href="/dashboard">Home</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              signout
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-      <Container>
-        <Row className="mt-5">
-          <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-    <Form>
+      <Navbar/>
+      <Card style={cardcss}>
+          <Form>
       <Form.Group className="mb-3" controlId="formbasicFirstName">
         <Form.Label>FirstName </Form.Label>
         <Form.Control placeholder={firstname} disabled/>
@@ -66,9 +54,7 @@ function Profile() {
         Update
       </Button>
     </Form>
-    </Col>
-   </Row>
-    </Container>
+    </Card>
     </div>
   );
 }

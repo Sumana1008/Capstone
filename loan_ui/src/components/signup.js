@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
+import React, { Component }  from 'react';
+import { Form,Card, Button } from "react-bootstrap";
 import axios from "axios";
-
+import { height } from "@mui/system";
+const cardcss = {
+    height:"720px",
+    padding:"70px",
+    width:"600px",
+    margin:"80px auto",
+    opacity: .9
+  }
 
 function Signup()
 {
@@ -96,38 +101,38 @@ function Signup()
   
   return (
 
-      <Card border="primary" style={{ width: '30rem',marginLeft:"500px",marginTop:"150px"}}>
+    <Card style={cardcss}>
      
-      <Card.Body>
-        <Card.Title className="text-center" size="lg">SignUp</Card.Title>
-        
-        <FloatingLabel controlId="floatingPassword" label="First Name" className="mb-3">
-            <Form.Control id="firstname" name="firstname" type="text" value={formValues.firstname}placeholder="First Name" onChange={(e) => onInputChange(e)} required />
-      </FloatingLabel>
-
-       
-      <FloatingLabel controlId="floatingPassword" label="Last Name" className="mb-3">
-          <Form.Control id="lastname" type="text" name="lastname" value={formValues.lastname} placeholder="Last Name" onChange={(e) => onInputChange(e)} required/>
-      </FloatingLabel>
-
-        <FloatingLabel
-        controlId="floatingInput"
-        label="Email address"
-        className="mb-3">
-            <Form.Control id="email" name="email" type="email" value={formValues.email} placeholder="name@example.com" onChange={(e) => onInputChange(e)} required/>
-      </FloatingLabel>
-
-      <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
-          <Form.Control id="password" type="password" name="password"  value={formValues.password} placeholder="Password" onChange={(e) => onInputChange(e)} required/>
-      </FloatingLabel>
-
-      <FloatingLabel controlId="floatingPassword" label="Confirm Password">
-          <Form.Control id="confirmPassword" name="confirmPassword" type="password" value={formValues.confirmpassword} placeholder="Confirm Password" onChange={(e) => onInputChange(e)} required/>
-      </FloatingLabel>
-        <div style={{textAlign:"center"}}>
-          <Button variant="primary" className="mt-3" onClick={FormHandle}>Submit</Button>
-        </div>
-      </Card.Body>
+      <Form>
+      <h1 style={{marginBottom:"25px"}}>Signup</h1>
+      <Form.Group>
+        <Form.Label>First Name</Form.Label>
+            <Form.Control style={{marginBottom:"10px"}} id="firstname" name="firstname" type="text" value={formValues.firstname} onChange={(e) => onInputChange(e)} required />
+      </Form.Group>
+      <Form.Group>
+      <Form.Label>Last Name</Form.Label>
+          <Form.Control style={{marginBottom:"10px"}} id="lastname" type="text" name="lastname" value={formValues.lastname} onChange={(e) => onInputChange(e)} required/>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Email</Form.Label>
+             <Form.Control style={{marginBottom:"10px"}} id="email" name="email" type="email" value={formValues.email} onChange={(e) => onInputChange(e)} required/>
+      </Form.Group>
+      <Form.Group>
+      <Form.Label>Password</Form.Label>
+          <Form.Control style={{marginBottom:"10px"}} id="password" type="password" name="password"  value={formValues.password}  onChange={(e) => onInputChange(e)} required/>
+      </Form.Group>
+      <Form.Group>
+      <Form.Label>Confirm Password</Form.Label>
+          <Form.Control style={{marginBottom:"10px"}} id="confirmPassword" name="confirmPassword" type="password" value={formValues.confirmpassword}  onChange={(e) => onInputChange(e)} required/>
+      </Form.Group>
+         <Button style={{marginBottom:"10px"}} variant="primary" className="mt-3" onClick={FormHandle} disabled={!firstname || !email || !password || !lastname}>Submit</Button>
+        </Form>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <div style={{flex: 1, height: '1px', backgroundColor: 'grey'}} />
+                <p style={{width: '70px', textAlign: 'center'}}>or</p>
+            <div style={{flex: 1, height: '1px', backgroundColor: 'grey'}} />
+          </div>
+          <Card.Text>Already have a account <a href="signin">click me</a></Card.Text>
     </Card>
    
   

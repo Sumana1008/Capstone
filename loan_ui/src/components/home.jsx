@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import { useState } from "react";
 import { Form,Card, Button } from "react-bootstrap";
 import axios from "axios";
@@ -64,9 +65,9 @@ const Home = () =>{
             </Form.Group>
             <Form.Group>
               <Form.Label>Password </Form.Label>
-              <Form.Control onChange={passwordchange} style={{marginBottom:"30px"}} type="password"/>
+              <Form.Control onChange={passwordchange} style={{marginBottom:"20px"}} type="password"/>
             </Form.Group>
-            <Button style={{marginBottom:"20px"}} variant="primary" type="submit"  onClick={formsubmit} disabled={!email || !password}>submit</Button>
+            <Button style={{marginBottom:"20px"}} variant="primary" type="submit" className="mt-3" onClick={formsubmit} disabled={!email || !password}>Submit</Button>
           </Form>
           <Card.Text>Forgot password? <a href="#">click me</a></Card.Text>
           <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>

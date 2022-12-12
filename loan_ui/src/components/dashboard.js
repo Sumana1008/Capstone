@@ -1,12 +1,14 @@
-import React from'react';
-import {Navbar,Nav ,NavDropdown,Container} from 'react-bootstrap';
+import React, { Component }  from 'react';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-
+import { Link, useNavigate } from 'react-router-dom';
+import Navbar from "./navbar"
+import { Form,Card} from "react-bootstrap";
+import Flexbox from 'flexbox-react';
+import './dashboard.css';
+import { margin } from '@mui/system';
 function Dashboard() {
-  const navigate = useNavigate();
   
+  const navigate = useNavigate();
   /* 
   useEffect(() => {
     if(!localStorage.getItem("token") || !localStorage.getItem("user")){
@@ -21,52 +23,26 @@ function Dashboard() {
   const statusbutton = () => {
     navigate("/loanstatus");
   }
-  const signoutfunc = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    navigate("/signin");
-  }
+  
   return (
     <div className="App">
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="#home">Dashboard</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav>
-          <Nav.Link href="/dashboard">Home</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link eventKey={2} onClick={signoutfunc}>
-              signout
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-
-    <br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-
-    <>
-      <Button onClick={applybutton} variant="primary" size="lg" active>
-        Apply Loan
-      </Button>
-      <br></br>
-<br></br>
-<br></br>
-      <Button onClick={statusbutton} variant="secondary" size="lg" active>
-        Loan Status
-      </Button>
-    </>
-
-
+      <Navbar/>
+    <div className="duv md-flex flex-row mb-3 align-self-center" style={{margin: "auto", display:"flex", alignItems:"center", justifyContent:"center"}}>
+    <Card onClick={applybutton} className="cardm">
+      <Card.Body>
+        <Card.Title style={{fontSize:"3.5vw"}}>ApplyLoan</Card.Title>
+        <Card.Text>
+        </Card.Text>
+      </Card.Body>
+    </Card>
+    <Card onClick={statusbutton} className="cardm" style={{}}>
+      <Card.Body>
+        <Card.Title style={{fontSize:"3.5vw",opacity:"0.9"}}>Loan Status</Card.Title>
+        <Card.Text>
+        </Card.Text>
+      </Card.Body>
+    </Card>
+    </div>
 </div>
   );
 }

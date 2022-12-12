@@ -1,6 +1,8 @@
-import { Button, Card,Form,Table,Container,Nav,Navbar } from "react-bootstrap";
+import React, { Component }  from 'react';
+import { Button, Card,Form,Table,Container} from "react-bootstrap";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from "./navbar";
 
 function Loanlist(){
     const navigate = useNavigate();
@@ -29,22 +31,7 @@ function Loanlist(){
     }
     return(
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="#home">Loan Status</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav>
-          <Nav.Link href="/dashboard">Home</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              signout
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+<Navbar/> 
         <div style={divcss}>
             <Card style={cardheader}>
                 <Card.Body>
@@ -59,7 +46,7 @@ function Loanlist(){
                 </Card.Body>
             </Card>
 
-            <Table striped>
+            <Table style={{backgroundColor:"white", opacity:"0.8"}}>
             <thead>
                 <tr>
                 <th>Loan type</th>
