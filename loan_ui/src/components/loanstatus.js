@@ -1,18 +1,21 @@
-import React, { Component }  from 'react';
-import { Button, Card,Form,Table,Container} from "react-bootstrap";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React , { useState, useEffect } from 'react';
+import { Button, Card,Form,Table} from "react-bootstrap";
+//import { useNavigate } from 'react-router-dom';
 import Navbar from "./navbar";
+import axios from 'axios';
 
 function Loanlist(){
-    const navigate = useNavigate();
-    /*
+    var user=localStorage.getItem("user");
+        const [data, setData] = useState([]);
+        var myHeaders = new Headers();
+        myHeaders.append("Access-Control-Allow-Origin", "*");
+        myHeaders.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
     useEffect(() => {
-        if(!localStorage.getItem("token") || !localStorage.getItem("user")){
-        navigate("/signin");  
-        }
-    },[])
-    */
+        axios.get('http://127.0.0.1:5000/data/'+user)
+          .then(res => {
+            setData(res.data);
+          })
+      }, []);
     const divcss = {
         padding:"40px 10rem"
     }
@@ -21,50 +24,39 @@ function Loanlist(){
         height:"70px",
         marginBottom:"20px"
     }
-    const cardcss = {
-        border:"1px solid grey",
-        marginBottom:"20px"
-    }
-    const trcss = {
-        border:"1px solid black",
-        
-    }
+    console.log(data)
     return(
         <div>
-<Navbar/> 
+<Navbar name="Loan Status"/> 
         <div style={divcss}>
             <Card style={cardheader}>
                 <Card.Body>
-                    <Form.Control style={{float:"left",width:"20rem"}} placeholder="search"/>
-                    <Form.Select style={{float:"right",width:"20rem"}}>
+                    <Form.Control style={{float:"left",width:"150px"}} placeholder="search"/>
+                    <Form.Select style={{float:"right",width:"150px"}}>
                         <option>Filter</option>
                         <option value="ACCEPTED">accepted</option>
                         <option value="PENDING">pending</option>
                         <option value="REJECTED">rejected</option>
                     </Form.Select>
-
                 </Card.Body>
             </Card>
-
             <Table style={{backgroundColor:"white", opacity:"0.8"}}>
             <thead>
                 <tr>
-                <th>Loan type</th>
+                <th>Loan Amount</th>
+                <th>Loan Duration</th>
                 <th>status</th>
                 
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>Car loan</td>
-                <td style={{color:"red"}}>Pending</td>
-                <td><Button style={{float:"right"}}>open</Button></td>
-                </tr>
-                <tr>
-                <td>Home loan</td>
-                <td style={{color:"green"}}>Accepted</td>
-                <td><Button style={{float:"right"}}>open</Button></td>
-                </tr>
+            {data.map((item,index) => (
+               <tr key={index}>
+                <td>₹ {item[1]}</td>
+                  <td>{item[2]} months</td>
+                  <td>{item[3]}</td>
+               </tr>
+             ))}
             </tbody>
             </Table>
         </div>
@@ -72,3 +64,10 @@ function Loanlist(){
     );
 }
 export default Loanlist;
+/* {data?.map((row) => (
+               <tr key={row.id}>
+                <td>{row.amount}</td>
+                  <td>{row.emimonths}</td>
+                  <td>{row.status}</td>
+               </tr>
+             ))}*/

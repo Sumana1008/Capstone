@@ -1,21 +1,14 @@
-import React, { Component }  from 'react';
+import React from 'react';
 import { useState } from "react";
 import { Form,Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 const Home = () =>{
     const navigate = useNavigate();
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const[user,setUser] = useState([])
-    /*
-    useEffect(() => {
-      if (localStorage.getItem("user")){
-        navigate("/dashboard");  
-      }
-    },[])
-    */
+  
     const cardcss = {
       height:"560px",
       padding:"70px",
@@ -37,7 +30,7 @@ const Home = () =>{
         }
       )
       .then((res) => {
-        if(res.status == 200 || res.status == 201){
+        if(res.status === 200 || res.status === 201){
           localStorage.setItem("token",res.data.jwt);
           localStorage.setItem("user",email);
           localStorage.setItem("fname",res.data.user.firstname)

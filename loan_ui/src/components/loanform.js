@@ -1,33 +1,15 @@
-import React, { Component }  from 'react';
+import React  from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {Col,Container,Row,Card} from "react-bootstrap";
-import { useEffect } from 'react';
+import {Card} from "react-bootstrap";
+//import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "./navbar"
 import axios from "axios";
+import "./cardform.css"
 
 function Loanform() {
-
   const navigate = useNavigate();
-  /*
-  useEffect(() => {
-    if(!localStorage.getItem("token") || !localStorage.getItem("user")){
-      navigate("/signin");  
-    }
-  },[])
-  */
-  const signout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    navigate("/signin");
-  }
-  const cardcss = {
-    height:"580px",
-    padding:"70px",
-    width:"500px",
-    margin:"80px auto",
-  }
 const FormHandle=(e)=>{
   const loginFormData = new FormData();
   loginFormData.append("ApplicantIncome", document.getElementById('ApplicantIncome').value)
@@ -40,75 +22,44 @@ const FormHandle=(e)=>{
   loginFormData.append("Married", document.getElementById('Married').value)
   loginFormData.append("Education", document.getElementById('Education').value)
   loginFormData.append("Gender", document.getElementById("Gender").value)
-  var term=0;
-  var amt=document.getElementById('LoanAmount').value;
-if(document.getElementById('Loan_Amount_Term').value==240){
-  term=0.5
+  sendreq(loginFormData) 
+  navigate("/dashboard")
 }
-else if(document.getElementById('Loan_Amount_Term').value==360){
-  term=1
-}
-  sendreq(loginFormData,term,amt)
-  console.log(loginFormData)
- 
-}
-
-
-
-  const sendreq=(data,term,amt)=> {
+var user=localStorage.getItem("user");
+  const sendreq=(data)=> {
     // store the states in the form data
       // make axios post request
-      axios({
-        method: "post",
-        url: "http://127.0.0.1:5000/predict",
-        data: data,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then(function (response) {
-          //handle success
-          
-          axios({
-            method: "post",
-            url: "http://localhost:8080/loan/reqLoan",
-            data: {
-              emimonths:term,
-              amount:amt,
-              status:response
-            },
-          })
-            .then(function (response) {
-              //handle success
+
+        axios.post("http://127.0.0.1:5000/predict/"+user, data).then(
+          (response) => {
               console.log(response);
-            })
-            .catch(function (response) {
-              //handle error
-              console.log(response);
-            });
-          alert(response);
-        })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
-        });
+              alert("Loan Applied Successfully,Check results in Loan Status");
+              },
+          (error) => {
+              console.log(error);
+              alert("Operation failed");
+          }
+          );
   }
+
   
   return (
     <div>
-      <Navbar/>
-      <Card style={cardcss}>
+      <Navbar name="Apply Loan"/>
+      <Card className='cardcs'>
         <Form >
         <Form.Group className="mb-3"  controlId='ApplicantIncome'>
-          <Form.Label>Amount</Form.Label>
+          <Form.Label>Applicant Income</Form.Label>
           <Form.Control type="Account Number" name='ApplicantIncome' />
         </Form.Group>
     
         <Form.Group className="mb-3"  controlId="CoaplicantIncome">
-          <Form.Label>CoaplicantIncome</Form.Label>
+          <Form.Label>Co AplicantIncome</Form.Label>
           <Form.Control type="Account Number" name='CoaplicantIncome'/>
         </Form.Group>
 
         <Form.Group className="mb-3"  controlId='LoanAmount'>
-          <Form.Label>LoanAmount</Form.Label>
+          <Form.Label>Loan Amount</Form.Label>
           <Form.Control type="Loan Amount" name='LoanAmount'/>
         </Form.Group>
 
@@ -143,9 +94,9 @@ else if(document.getElementById('Loan_Amount_Term').value==360){
           <Form.Label>Geographical Area</Form.Label>
           <Form.Select aria-label="Default select example">
             <option>--Select--</option>
-            <option value="2">urban</option>
-                <option value="1">semiurban</option>
-                <option value="0">rural</option>
+            <option value="2">Urban</option>
+                <option value="1">Semi Urban</option>
+                <option value="0">Rural</option>
           </Form.Select>
         </Form.Group> 
 
